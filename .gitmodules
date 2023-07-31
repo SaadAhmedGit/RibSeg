@@ -1,12 +1,12 @@
 [submodule "models/nnUNet"]
-	path = models/nnUNet
+	path = segmentation/nnUNet
 	url = https://github.com/jasonkena/nnUNet
 [submodule "models/pointcnn_pytorch"]
-	path = models/pointcnn_pytorch
+	path = segmentation/pointcnn_pytorch
 	url = https://github.com/jasonkena/pointcnn_pytorch
 [submodule "models/Pointnet_Pointnet2_pytorch"]
-	path = models/Pointnet_Pointnet2_pytorch
+	path = segmentation/Pointnet_Pointnet2_pytorch
 	url = https://github.com/jasonkena/Pointnet_Pointnet2_pytorch.git
 [submodule "models/dgcnn.pytorch"]
-	path = models/dgcnn.pytorch
+	path = segmentation/dgcnn.pytorch
 	url = https://github.com/jasonkena/dgcnn.pytorch

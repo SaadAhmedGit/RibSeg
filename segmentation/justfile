@@ -1,0 +1,15 @@
+default:
+    just --list
+
+compress:
+    python summarize_outputs.py
+
+metrics:
+    python metrics.py
+
+centroids_m:
+    python ribseg_dataset.py
+
+simple_preprocess:
+    # for TEASAR which requires centroids_m
+    python simple_preprocess.py
