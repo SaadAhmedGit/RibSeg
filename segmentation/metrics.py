@@ -46,11 +46,13 @@ def evaluate(input_dir, second_stage_dir=None):  # binary_dir, binary=False):
             union_gt = gt_.sum()
             if union_gt:
                 dice_temp = (2 * intersection) / (union_pred + union_gt)
+                recall_temp = intersection / union_gt
                 dice[i] += dice_temp
                 single_rib_recall[i][1] += 1
                 # print("USING AVERAGE DICE")
                 # single_rib_recall[i][0] += dice_temp
-                if dice_temp > 0.7:
+                if recall_temp > 0.7:
+                # if dice_temp > 0.7:
                     single_rib_recall[i][0] += 1
             else:
                 num -= 1
