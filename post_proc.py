@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.interpolate import UnivariateSpline
 
-source_data_dir = './data/ribfrac/ribfrac-test-images/'
+source_data_dir = './data/ribfrac/ribfrac-val-images/'
 Label_dir = './data/RibSeg/nii/'
 
 dis_c2_point_dir = './inference_res/point/'
@@ -23,7 +23,7 @@ dis_c2_label_dir = './inference_res/label/'
 
 
 ### add .npy when loading point/label
-name_list = tqdm([x for x in os.listdir(source_data_dir)])
+name_list = tqdm([x for x in os.listdir(source_data_dir)][:1])
 ## source image
 total_dice = 0
 rib_recall = np.zeros((24, 2))
@@ -37,8 +37,8 @@ for ct in name_list:
     s_i[s_i != 0] = 1
     s_i = s_i.astype('int8')
 
-    loc = np.load(dis_c2_point_dir + ct[:-13]+'.npy')
-    label = np.load(dis_c2_label_dir + ct[:-13]+'.npy')
+    loc = np.load(dis_c2_point_dir + 'val' + ct[:-13]+'.npy')
+    label = np.load(dis_c2_label_dir + 'val' + ct[:-13]+'.npy')
 
     mask_rd = np.zeros(s_i.shape)
     mask_res = np.zeros(s_i.shape)
@@ -71,7 +71,7 @@ for ct in name_list:
     im = im.astype('int8')
 
     ## dice
-    s = nib.load(Label_dir + ct[:-12]+'rib-seg.nii.gz')
+    s = nib.load(Label_dir + ct[:-12]+'label.nii.gz')
     s = s.get_fdata()
     s = s.astype('int8')
 
