@@ -56,7 +56,7 @@ def main(args):
     checkpoint = torch.load(str(experiment_dir) + '/checkpoints/best_model.pth')
     classifier.load_state_dict(checkpoint['model_state_dict'])
 
-    data_list = tqdm([x for x in os.listdir('./data/pn/data_pn/test/')])
+    data_list = tqdm([x for x in os.listdir('./data/pn/data_pn/')])
     
 
     with torch.no_grad():
@@ -65,8 +65,8 @@ def main(args):
         ave_dice=torch.tensor(0).float().cuda()
         for ct in data_list:
             num+=1
-            data = np.load('./data/pn/data_pn/test/'+ct).astype(np.float32)
-            seg = np.load('./data/pn/label_pn/test/'+ct).astype(np.int32)
+            data = np.load('./data/pn/data_pn/'+ct).astype(np.float32)
+            seg = np.load('./data/pn/label_pn/'+ct).astype(np.int32)
             seg[seg!=0]=1
 
             points = data[:, 0:3]
@@ -86,12 +86,12 @@ def main(args):
             points, label,seg = torch.from_numpy(points).float().cuda(), torch.from_numpy(label).long().cuda(),torch.from_numpy(seg).long().cuda()
             points = points.transpose(2, 1)
 
-            t1=time.clock()
+            t1=time.perf_counter()
 
             classifier = classifier.eval()
             seg_pred, trans_feat = classifier(points, to_categorical(label, num_classes))
 
-            time_cost += time.clock()-t1
+            time_cost += time.perf_counter() - t1
             seg_pred = seg_pred.contiguous().view(-1, num_part)
             pred_choice = seg_pred.data.max(1)[1]
 
