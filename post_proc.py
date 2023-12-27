@@ -23,7 +23,7 @@ dis_c2_label_dir = './inference_res/label/'
 
 
 ### add .npy when loading point/label
-name_list = tqdm([x for x in os.listdir(source_data_dir)][:1])
+name_list = tqdm([x for x in os.listdir(source_data_dir)])
 ## source image
 total_dice = 0
 rib_recall = np.zeros((24, 2))
